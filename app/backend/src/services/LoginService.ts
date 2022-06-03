@@ -18,8 +18,6 @@ export default class UserService {
 
     const secret = fs.readFileSync('jwt.evaluation.key', 'utf8');
 
-    console.log(secret);
-
     const token = jwt.sign({ data: user }, secret, jwtConfig);
 
     const { id, username, role } = user;

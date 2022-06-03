@@ -17,7 +17,7 @@ export default class LoginController {
 
       return res.status(200).json({ ...result });
     } catch (error) {
-      return res.status(401).json({ message: 'error' });
+      return res.status(401).json({ message: 'Incorrect email or password' });
     }
   }
 }
