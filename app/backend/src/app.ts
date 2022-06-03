@@ -1,4 +1,5 @@
 import * as express from 'express';
+import LoginRouter from './routes/LoginRoute';
 
 class App {
   public app: express.Express;
@@ -17,9 +18,9 @@ class App {
       res.header('Access-Control-Allow-Headers', '*');
       next();
     };
-
+    this.app.use(express.json());
     this.app.use(accessControl);
-    
+    this.app.use(LoginRouter);
   }
 
   // ...
