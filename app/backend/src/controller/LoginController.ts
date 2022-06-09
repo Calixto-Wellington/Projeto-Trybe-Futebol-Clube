@@ -1,21 +1,14 @@
-import { Request, Response, NextFunction } from 'express';
-import { ILogin, IToken } from '../interfaces/ILogin';
+import { Request, Response } from 'express';
 import LoginService from '../services/LoginService';
 
 export default class LoginController {
-  static async login(req: Request, res:Response, next:NextFunction) {
+  static async login(req: Request, res:Response) {
     try {
-      const { email, password } = req.body as ILogin;
+      const { email, password } = req.body;
+      console.log(email);
+      const result = await LoginService.getByEmail(email, password);
 
-      const result = await LoginService.getByEmail({ email, password });
-
-      if (!result) {
-        return next(({ type: 'unauthorized',
-          message: 'Incorrect email or password' }
-        ));
-      }
-
-      return res.status(200).json({ ...result });
+      return res.status(200).json(result);
     } catch (error) {
       return res.status(401).json({ message: 'Incorrect email or password' });
     }
