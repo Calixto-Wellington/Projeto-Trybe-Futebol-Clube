@@ -21,8 +21,12 @@
   "license": "ISC",
   "devDependencies": {
     "@istanbuljs/nyc-config-typescript": "1.0.2",
+<<<<<<< HEAD
     "@types/bcrypt": "5.0.0",
     "@types/bcryptjs": "^2.4.2",
+=======
+    "@types/bcryptjs": "2.4.2",
+>>>>>>> main
     "@types/chai": "4.3.0",
     "@types/chai-http": "4.2.0",
     "@types/cors": "2.8.12",
@@ -55,6 +59,10 @@
     "typescript": "4.4.4"
   },
   "dependencies": {
+<<<<<<< HEAD
+=======
+    "bcryptjs": "2.4.3",
+>>>>>>> main
     "cors": "2.8.5",
     "dotenv": "10.0.0",
     "express": "4.17.1",
