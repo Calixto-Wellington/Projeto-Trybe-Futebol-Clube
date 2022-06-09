@@ -37,7 +37,9 @@ export default class LoginService {
       data: { id: string; email: string };
       id: number
     }
+
     const decoded = jwt.verify(token, fs.readFileSync('jwt.evaluation.key', 'utf8')) as JwtPayload;
+    
     const users = await this.getAll();
     if (!users) return null;
 
