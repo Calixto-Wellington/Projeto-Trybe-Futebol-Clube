@@ -6,6 +6,6 @@ import validatePassword from '../middlewares/validatePassword';
 const router = Router();
 
 router.post('/login', validateEmail, validatePassword, LoginController.login);
-router.get('/validate', LoginController.roleUser);
+router.get('/login/validate', LoginController.roleUser);
 
 export default router;
