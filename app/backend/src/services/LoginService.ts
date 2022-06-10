@@ -11,10 +11,10 @@ export default class LoginService {
     });
 
     if (!user) throw new Error('User not found');
-    
-    const passwordValidate = await Bcrypt.compare(password, user.password) 
 
-    if(!passwordValidate) throw new Error('Password incorrect');
+    const passwordValidate = await Bcrypt.compare(password, user.password);
+
+    if (!passwordValidate) throw new Error('Password incorrect');
 
     const jwtConfig: SignOptions = { expiresIn: '7d', algorithm: 'HS256' };
 
