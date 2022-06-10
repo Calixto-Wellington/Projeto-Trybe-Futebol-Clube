@@ -11,15 +11,15 @@ export default class LoginService {
     });
 
     if (!user) throw new Error('User not found');
-    
+
     if (!Bcrypt.compare(password, user.password)) throw new Error('Password incorrect');
-    
+
     const jwtConfig: SignOptions = { expiresIn: '7d', algorithm: 'HS256' };
-    
+
     const secret = fs.readFileSync('jwt.evaluation.key', 'utf8');
-    
+
     const token = jwt.sign({ data: user }, secret, jwtConfig);
-    
+
     const { id, username, role } = user;
 
     return { user: { id, username, role, email }, token };
@@ -39,9 +39,9 @@ export default class LoginService {
     }
 
     const decoded = jwt.verify(token, fs.readFileSync('jwt.evaluation.key', 'utf8')) as JwtPayload;
-    
+
     const users = await this.getAll();
-    
+
     if (!users) return null;
 
     const anyUser = users.find((user) => user.email === decoded.data.email);
