@@ -16,4 +16,15 @@ export default class MatchController {
       return next(error);
     }
   }
+
+  static async matchCreate(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { authorization } = req.headers;
+      const matchNew = await MatchService.createMatch(authorization as string, req.body);
+
+      return res.status(201).json(matchNew);
+    } catch (error) {
+      return next(error);
+    }
+  }
 }

@@ -12,5 +12,6 @@ router.get('/login/validate', LoginController.roleUser);
 router.get('/teams', TeamController.getAll);
 router.get('/teams/:id', TeamController.getById);
 router.get('/matches', MatchController.getAll);
+router.post('/matches', MatchController.matchCreate);
 
 export default router;

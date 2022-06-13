@@ -1,5 +1,7 @@
 import TeamModel from '../database/models/TeamModel';
 import MatchModel from '../database/models/MatchModel';
+import LoginService from './LoginService';
+import { ICreate } from '../interfaces/IMatch';
 
 export default class MatchService {
   static async getAll(params: boolean) {
@@ -35,5 +37,22 @@ export default class MatchService {
       ],
     });
     return match1;
+  }
+
+  static async createMatch(token: string, body: ICreate) {
+    const tokenVerify = await LoginService.isLogin(token);
+
+    if (!tokenVerify) return null;
+
+    const { homeTeam, homeTeamGoals, awayTeam, awayTeamGoals, inProgress } = body;
+    const matchNew = MatchModel.create({
+      homeTeam,
+      homeTeamGoals,
+      awayTeam,
+      awayTeamGoals,
+      inProgress,
+    });
+
+    return matchNew;
   }
 }
