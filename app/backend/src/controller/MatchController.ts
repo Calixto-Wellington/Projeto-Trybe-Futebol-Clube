@@ -27,4 +27,15 @@ export default class MatchController {
       return next(error);
     }
   }
+
+  static async matchUpdate(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { id } = req.params;
+      await MatchService.updateMach(Number(id));
+
+      return res.status(200).json({ message: 'Finish' });
+    } catch (error) {
+      return next(error);
+    }
+  }
 }

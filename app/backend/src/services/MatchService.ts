@@ -55,4 +55,13 @@ export default class MatchService {
 
     return matchNew;
   }
+
+  static async updateMach(id: number) {
+    const matchFinish = await MatchModel.update(
+      {
+        inProgress: false },
+      { where: { id } },
+    );
+    return matchFinish;
+  }
 }

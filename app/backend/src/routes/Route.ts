@@ -13,5 +13,6 @@ router.get('/teams', TeamController.getAll);
 router.get('/teams/:id', TeamController.getById);
 router.get('/matches', MatchController.getAll);
 router.post('/matches', MatchController.matchCreate);
+router.patch('/matches/:id/finish', MatchController.matchUpdate);
 
 export default router;
