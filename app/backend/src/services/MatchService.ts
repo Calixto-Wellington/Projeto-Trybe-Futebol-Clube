@@ -20,7 +20,6 @@ export default class MatchService {
     });
     return match;
   }
-  // this.getAllLala();
 
   static async getAllLala() {
     const match1 = await MatchModel.findAll({
@@ -54,6 +53,13 @@ export default class MatchService {
     });
 
     return matchNew;
+  }
+
+  static async getById(homeTeam: number, awayTeam: number) {
+    const teamHome = await TeamModel.findByPk(homeTeam);
+    const teamAway = await TeamModel.findByPk(awayTeam);
+
+    if (!teamHome || !teamAway) return true;
   }
 
   static async updateMach(id: number) {
