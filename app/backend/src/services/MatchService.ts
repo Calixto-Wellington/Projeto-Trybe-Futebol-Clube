@@ -70,4 +70,13 @@ export default class MatchService {
     );
     return matchFinish;
   }
+
+  static async goalsUpdate(homeTeamGoals:number, awayTeamGoals:number, id:number) {
+    await MatchModel.update({
+      homeTeamGoals,
+      awayTeamGoals,
+    }, {
+      where: { id },
+    });
+  }
 }
