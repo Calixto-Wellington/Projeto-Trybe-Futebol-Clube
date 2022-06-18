@@ -4,6 +4,7 @@ import LoginController from '../controller/LoginController';
 import validateEmail from '../middlewares/validateEmail';
 import validatePassword from '../middlewares/validatePassword';
 import MatchController from '../controller/MatchController';
+import LeaderBoardController from '../controller/LeaderBoardController';
 
 const router = Router();
 
@@ -15,5 +16,6 @@ router.get('/matches', MatchController.getAll);
 router.post('/matches', MatchController.matchCreate);
 router.patch('/matches/:id/finish', MatchController.matchUpdate);
 router.patch('/matches/:id', MatchController.goalsUpdate);
+router.get('/leaderboard/home', LeaderBoardController.getAll);
 
 export default router;

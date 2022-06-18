@@ -7,7 +7,7 @@ export default class MatchController {
       const { inProgress } = req.query;
       const progressInConvert = inProgress === 'true';
       if (inProgress) {
-        const match = await MatchService.getAll(progressInConvert);
+        const match = await MatchService.getAllParams(progressInConvert);
         return res.status(200).json(match);
       }
       const match = await MatchService.getAllLala();

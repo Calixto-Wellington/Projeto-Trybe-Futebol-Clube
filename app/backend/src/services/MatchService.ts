@@ -4,7 +4,22 @@ import LoginService from './LoginService';
 import { ICreate } from '../interfaces/IMatch';
 
 export default class MatchService {
-  static async getAll(params: boolean) {
+  static async getAll() {
+    const matches = await MatchModel.findAll({
+      include: [{ model: TeamModel,
+        as: 'teamHome',
+        attributes: { exclude: ['id'],
+        } },
+      { model: TeamModel,
+        as: 'teamAway',
+        attributes: { exclude: ['id'],
+        } },
+      ],
+    });
+    return matches;
+  }
+
+  static async getAllParams(params: boolean) {
     const match = await MatchModel.findAll({
       where: { inProgress: params },
       include: [{ model: TeamModel,
