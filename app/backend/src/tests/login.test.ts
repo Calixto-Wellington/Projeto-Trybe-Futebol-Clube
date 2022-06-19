@@ -14,7 +14,7 @@ chai.use(chaiHttp);
 const { expect, assert } = chai;
 
 describe('Teste na rota de login', () => {
-  describe('Quando o login é efetuado com sucesso', () => {
+  describe('Login sucesso', () => {
   let chaiHttpResponse: Response;
 
     before(async () => {
@@ -33,18 +33,18 @@ describe('Teste na rota de login', () => {
     })
 
     
-    it(' Status 200 ok', async () => {
+    it('Status 200', async () => {
       expect(chaiHttpResponse).to.have.status(200);
     });
-    it('Com os dados do usuário, retorna o login e o token', () => {
+    it('Recebe os dados da pessoa usuária, retornando os dado e o token', () => {
       const { user, token } = chaiHttpResponse.body;
-      expect(chaiHttpResponse).not.to.be.undefined;
+      expect(chaiHttpResponse).not.to.be.undefined;;
     });
-    it(' Um Objeto é retornado', () => {
+    it('Traz o objeto', () => {
       assert.typeOf(MockResponse, 'object');
-    }); 
+    });
   });
-  describe('Email incorreto', () => {
+  describe('Se o email está incorreto', () => {
     let chaiHttpResponse: Response;
 
     before(async () => {
@@ -61,52 +61,53 @@ describe('Teste na rota de login', () => {
     after(() => {
       (Users.findOne as sinon.SinonStub).restore();
     })
-    
-    it('O status 40é retornado', () => {
+
+    it('Retorna status 401', () => {
       expect(chaiHttpResponse).to.have.status(401);
     });
   });
-  describe('Caso a senha esteja incorreta')
-  let chaiHttpResponse: Response;
+  describe('Se a senha está incorreta', () => {
+    let chaiHttpResponse: Response;
 
-  before(async () => {
-    chaiHttpResponse = await chai
-    .request(app)
-    .post("/login")
-    .send({ email: 'admin@admin', password:'secret_admin'})
+    before(async () => {
+      chaiHttpResponse = await chai
+      .request(app)
+      .post("/login")
+      .send({ email: 'admin@admin', password:'secret_admin'})
 
-    sinon
-    .stub(Users, "findOne")
-    .resolves(mockUsers[0] as Users)
+      sinon
+      .stub(Users, "findOne")
+      .resolves(mockUsers[0] as Users);
+    });
+
+    after(() => {
+      (Users.findOne as sinon.SinonStub).restore();
+    })
+
+    it('Retorna status 401', () => {
+      expect(chaiHttpResponse).to.have.status(401);
+    });
   });
+  describe('body vazio', () => {
+    let chaiHttpResponse: Response;
 
-  after(() => {
-    (Users.findOne as sinon.SinonStub).restore();
-  });
+    before(async () => {
+      chaiHttpResponse = await chai
+      .request(app)
+      .post("/login")
+      .send({})
 
-  it('O status 401', () => {
-    expect(chaiHttpResponse).have.status(401);
-  });
-});
-describe('Qaundo o body esta vazio', () => {
-  let chaiHttpResponse: Response;
+      sinon
+      .stub(Users, "findOne")
+      .resolves(mockUsers[0] as Users);
+    });
 
-  before(async ()  => {
-    chaiHttpResponse = await chai
-    .request(app)
-    .post("/login")
-    .send({})
+    after(() => {
+      (Users.findOne as sinon.SinonStub).restore();
+    })
 
-    sinon
-    .stub(Users, "findOne")
-    .resolves(mockUsers[0] as Users);
-  });
-
-  after(() => {
-    (Users.findOne as sinon.SinonStub).restore();
-  })
-
-  it('O status 400', () => {
-    expect(chaiHttpResponse).to.have.status(400);
+    it('Retorna status 400', () => {
+      expect(chaiHttpResponse).to.have.status(400);
+    });
   });
 });

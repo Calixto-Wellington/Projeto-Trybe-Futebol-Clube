@@ -1,5 +1,8 @@
 import * as express from 'express';
-import Router from './routes/Route';
+import LoginRouter from './routes/LoginRoute';
+import TeamRouter from './routes/TeamRoute';
+import MatchRouter from './routes/MatchRoute';
+import LeaderBoardRoute from './routes/LeaderBoardRoute';
 
 class App {
   public app: express.Express;
@@ -20,7 +23,11 @@ class App {
     };
     this.app.use(express.json());
     this.app.use(accessControl);
-    this.app.use(Router);
+
+    this.app.use(LoginRouter);
+    this.app.use(TeamRouter);
+    this.app.use(MatchRouter);
+    this.app.use(LeaderBoardRoute);
   }
 
   // ...
